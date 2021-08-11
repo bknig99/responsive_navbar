@@ -182,8 +182,7 @@ class _ResponsiveBarState extends State<ResponsiveBar>
     //initial animation
     _animateBarWidth(widget.currentIndex, widget.scaling * 0.65);
     _animateBarHeight(widget.currentIndex, 3.5);
-    _animateBarColor(
-        widget.currentIndex, widget.barAccentColor ?? widget.activeItemColor);
+    _animateBarColor(widget.currentIndex, widget.barAccentColor);
     _animateIconScale(widget.currentIndex);
   }
 
@@ -631,7 +630,7 @@ class ResponsiveBarItem {
   /// the [icon] must not be null
   ResponsiveBarItem(
       {required this.icon,
-        required this.selectedIcon,
-        this.badgeCount = 0,
-        this.showBadge = false});
+      required this.selectedIcon,
+      this.badgeCount = 0,
+      this.showBadge = false});
 }

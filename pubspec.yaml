@@ -1,6 +1,6 @@
 name: responsive_navbar
 description: A responsive Navigation Bar for each field of use
-version: 0.0.1
+version: 0.0.3
 homepage: https://github.com/bknig99/responsive_navbar
 
 environment:
