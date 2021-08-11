@@ -2,10 +2,13 @@
 
 this package delivers you a navigationBar with animation and much customization!
 
-![--picture comming soon--](http://url/to/img.png)
+## Full Mobile Support
+![](https://github.com/bknig99/responsive_navbar/readme_images/desktop.png)
+
+## Full Desktop Support
+![](https://github.com/bknig99/responsive_navbar/readme_images/desktop.png)
 
 ## Usage
-
 ```dart
 @override
 Widget build(BuildContext context) {
