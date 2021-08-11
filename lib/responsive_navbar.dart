@@ -608,7 +608,7 @@ class Bar {
 class ResponsiveBarItem {
   ///
   /// The icon of the item
-  /// Typically the icon is of type [Icon].
+  /// Typically the icon is of type [Icon]
   ///
   final Widget icon;
 
@@ -619,27 +619,19 @@ class ResponsiveBarItem {
   /// [icon] in either state.
   final Widget selectedIcon;
 
-  ///
-  /// Item title under icon
-  ///
-  final Widget title;
-
-  ///
-  /// Item selected title under icon
-  ///
-  final Widget selectedTitle;
-
   /// Notification badge count
   final int badgeCount;
 
   /// hide or show badge
   final bool showBadge;
 
-  /// Create a Custom Navigationbar Item.
+  /// Create a Custom Navigationbar Item
   ///
-  /// the [selectedIcon] must not be null.
-  /// the [icon] must not be null.
+  /// the [selectedIcon] must not be null
+  /// the [icon] must not be null
   ResponsiveBarItem(
-      this.title, this.selectedTitle, this.badgeCount, this.showBadge,
-      {required this.icon, required this.selectedIcon});
+      {required this.icon,
+        required this.selectedIcon,
+        this.badgeCount = 0,
+        this.showBadge = false});
 }
