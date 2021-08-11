@@ -3,10 +3,10 @@
 this package delivers you a navigationBar with animation and much customization!
 
 ## Full Mobile Support
-![](https://github.com/bknig99/responsive_navbar/readme_images/mobile.png)
+![](https://github.com/bknig99/responsive_navbar/blob/master/readme_images/mobile.png)
 
 ## Full Desktop Support
-![](https://github.com/bknig99/responsive_navbar/readme_images/desktop.png)
+![](https://github.com/bknig99/responsive_navbar/blob/master/readme_images/desktop.png)
 
 ## Usage
 ```dart
