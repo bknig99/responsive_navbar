@@ -8,15 +8,21 @@ import 'package:flutter_responsive_bar/badge_text.dart';
 /// @author Sebastian.König
 ///
 //##############################################################################
-
 class ResponsiveBar extends StatefulWidget {
   final bool usingBottomBar;
   final bool isForDesktop;
   final bool usingTopBar;
   final bool usingLeftBar;
   final bool usingRightBar;
-  final bool itemsStaked = false;
 
+  final bool itemsStaked;
+
+  ///
+  ///sets the roundness of the Bars
+  ///################################
+  ///default is 25
+  ///set this param to 0 if you dont
+  ///want to have roundness on the Bars
   final double barCircularity;
 
   ///
@@ -114,7 +120,7 @@ class ResponsiveBar extends StatefulWidget {
 
   const ResponsiveBar(
       {Key? key,
-      this.isForDesktop = true,
+      required this.isForDesktop,
       this.scaling = 60,
       this.activeItemColor = const Color(0xFFFFFFFF),
       this.passiveItemColor = const Color(0xAAAAAAAA),
@@ -137,7 +143,9 @@ class ResponsiveBar extends StatefulWidget {
       this.barCircularity = 25,
       this.useBarAnimation = false,
       this.useBarAccentColor = true,
-      this.useIconScaleCurve = true})
+      this.useIconScaleCurve = true,
+      this.itemsStaked = false
+      })
       : assert(iconScaleAnimationFactor <= 0.5,
             'Scale factor must be smaller than 0.5'),
         assert(
@@ -176,8 +184,7 @@ class ResponsiveBarState extends State<ResponsiveBar>
     //initial animation
     _animateBarWidth(widget.currentIndex, widget.scaling * 0.65);
     _animateBarHeight(widget.currentIndex, 3.5);
-    _animateBarColor(
-        widget.currentIndex, widget.barAccentColor);
+    _animateBarColor(widget.currentIndex, widget.barAccentColor);
     _animateIconScale(widget.currentIndex);
   }
 
@@ -208,7 +215,7 @@ class ResponsiveBarState extends State<ResponsiveBar>
       child: Column(
         crossAxisAlignment: widget.itemsStaked
             ? CrossAxisAlignment.start
-            : CrossAxisAlignment.stretch,
+            : CrossAxisAlignment.center,
         children: <Widget>[
           for (var i = 0; i < widget.items.length; i++)
             Expanded(
@@ -237,7 +244,9 @@ class ResponsiveBarState extends State<ResponsiveBar>
       width: MediaQuery.of(context).size.width,
       height: scaling,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: widget.itemsStaked
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center,
         children: <Widget>[
           for (var i = 0; i < widget.items.length; i++)
             Expanded(
@@ -247,7 +256,9 @@ class ResponsiveBarState extends State<ResponsiveBar>
                   widget.onTap(i);
                 },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: widget.itemsStaked
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _buildNavigationItem(i),
@@ -501,8 +512,7 @@ class _CustomNavigationBarTile extends StatelessWidget {
       required this.selectedColor,
       required this.unSelectedColor,
       required this.scale,
-      required this.iconSize
-      })
+      required this.iconSize})
       : super(key: key);
 
   //############################################################################
@@ -556,7 +566,6 @@ class BarsOfItem {
     }
   }
 
-  // ignore: missing_return
   double getHeight(AlignType alignType) {
     switch (alignType) {
       case AlignType.TOP:
@@ -601,7 +610,7 @@ class Bar {
 class ResponsiveBarItem {
   ///
   /// The icon of the item
-  /// Typically the icon is of type [Icon].
+  /// Typically the icon is of type [Icon]
   ///
   final Widget icon;
 
@@ -612,27 +621,19 @@ class ResponsiveBarItem {
   /// [icon] in either state.
   final Widget selectedIcon;
 
-  ///
-  /// Item title under icon
-  ///
-  final Widget title;
-
-  ///
-  /// Item selected title under icon
-  ///
-  final Widget selectedTitle;
-
   /// Notification badge count
   final int badgeCount;
 
   /// hide or show badge
   final bool showBadge;
 
-  /// Create a Custom Navigationbar Item.
+  /// Create a Custom Navigationbar Item
   ///
-  /// the [selectedIcon] must not be null.
-  /// the [icon] must not be null.
+  /// the [selectedIcon] must not be null
+  /// the [icon] must not be null
   ResponsiveBarItem(
-      this.title, this.selectedTitle, this.badgeCount, this.showBadge,
-      {required this.icon, required this.selectedIcon});
+      {required this.icon,
+        required this.selectedIcon,
+        this.badgeCount = 0,
+        this.showBadge = false});
 }

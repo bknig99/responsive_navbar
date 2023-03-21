@@ -1,6 +1,6 @@
 name: flutter_responsive_bar
 description: this package delivers you a navigationBar with animation and much customization!
-version: 0.0.3
+version: 0.0.8
 homepage: https://github.com/bknig99/flutter_responsive_bar
 
 environment:
@@ -24,7 +24,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: de.complusit.koenig.responsive_bar
+        package: de.complusit.koenig.flutter_responsive_bar
         pluginClass: ResponsiveBarPlugin
       ios:
         pluginClass: ResponsiveBarPlugin

@@ -1,7 +1,5 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:responsive_navbar/responsive_navbar.dart';
+import 'package:flutter_responsive_bar/responsive_navbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,16 +15,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MobileMain(title: 'Flutter Demo Home Page'),
+      home: DesktopMain(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
+// ignore: must_be_immutable
 class DesktopMain extends StatefulWidget {
   DesktopMain({super.key, required this.title, this.index = 0});
 
   final String title;
-  int index = 0;
+
+  late int index;
 
   @override
   State<DesktopMain> createState() => _DesktopMainState();
@@ -94,10 +94,12 @@ class _DesktopMainState extends State<DesktopMain> {
                 activeItemColor: Colors.white,
                 passiveItemColor: Colors.white30,
                 transition: const Duration(milliseconds: 700),
+                itemsStaked: true,
                 items: [
-                  //##########################################################
+                  //############################################################
                   //BarItems
-                  //##########################################################
+                  //############################################################
+
                   ResponsiveBarItem(
                       icon: const Icon(Icons.store_outlined),
                       selectedIcon: const Icon(Icons.store_rounded)),

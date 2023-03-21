@@ -1,7 +1,11 @@
-library responsive_bar;
+library flutter_responsive_bar;
 
 import 'package:flutter/material.dart';
 
+///
+/// @author Sebastian.König
+///
+//##############################################################################
 class BadgeText extends StatelessWidget {
   //############################################################################
   // counter showed in notification badge

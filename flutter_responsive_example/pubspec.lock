@@ -70,6 +70,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_responsive_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_responsive_bar
+      sha256: "0cb28464b1afe92f6e40d0e637487937ba84f289083d62b5bd9d3b3d03b46d40"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -123,14 +131,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
-  responsive_navbar:
-    dependency: "direct main"
-    description:
-      name: responsive_navbar
-      sha256: "2a47b44950d114285a08855191985e99259cce10d623aff9c4c1f642eaabe840"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   sky_engine:
     dependency: transitive
     description: flutter
