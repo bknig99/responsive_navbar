@@ -1,28 +1,22 @@
-library responsive_navbar;
-
-import 'dart:ui';
+library flutter_responsive_bar;
 
 import 'package:flutter/material.dart';
-import 'package:responsive_navbar/align_type.dart';
-import 'package:responsive_navbar/badge_text.dart';
+import 'package:flutter_responsive_bar/align_type.dart';
+import 'package:flutter_responsive_bar/badge_text.dart';
 
 ///
 /// @author Sebastian.König
 ///
 //##############################################################################
+
 class ResponsiveBar extends StatefulWidget {
   final bool usingBottomBar;
   final bool isForDesktop;
   final bool usingTopBar;
   final bool usingLeftBar;
   final bool usingRightBar;
+  final bool itemsStaked = false;
 
-  ///
-  ///sets the roundness of the Bars
-  ///################################
-  ///default is 25
-  ///set this param to 0 if you dont
-  ///want to have roundness on the Bars
   final double barCircularity;
 
   ///
@@ -120,7 +114,7 @@ class ResponsiveBar extends StatefulWidget {
 
   const ResponsiveBar(
       {Key? key,
-      required this.isForDesktop,
+      this.isForDesktop = true,
       this.scaling = 60,
       this.activeItemColor = const Color(0xFFFFFFFF),
       this.passiveItemColor = const Color(0xAAAAAAAA),
@@ -152,13 +146,13 @@ class ResponsiveBar extends StatefulWidget {
         super(key: key);
 
   @override
-  _ResponsiveBarState createState() => _ResponsiveBarState();
+  ResponsiveBarState createState() => ResponsiveBarState();
 }
 
 //##############################################################################
 //_SideBarState
 //##############################################################################
-class _ResponsiveBarState extends State<ResponsiveBar>
+class ResponsiveBarState extends State<ResponsiveBar>
     with TickerProviderStateMixin {
   final ValueNotifier<List<double>> _sizes = ValueNotifier([]);
   late AnimationController _scaleIconController;
@@ -182,7 +176,8 @@ class _ResponsiveBarState extends State<ResponsiveBar>
     //initial animation
     _animateBarWidth(widget.currentIndex, widget.scaling * 0.65);
     _animateBarHeight(widget.currentIndex, 3.5);
-    _animateBarColor(widget.currentIndex, widget.barAccentColor);
+    _animateBarColor(
+        widget.currentIndex, widget.barAccentColor);
     _animateIconScale(widget.currentIndex);
   }
 
@@ -211,7 +206,9 @@ class _ResponsiveBarState extends State<ResponsiveBar>
       width: scaling,
       height: MediaQuery.of(context).size.height,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: widget.itemsStaked
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.stretch,
         children: <Widget>[
           for (var i = 0; i < widget.items.length; i++)
             Expanded(
@@ -221,7 +218,9 @@ class _ResponsiveBarState extends State<ResponsiveBar>
                     widget.onTap(i);
                   },
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: widget.itemsStaked
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       _buildNavigationItem(i),
@@ -463,17 +462,17 @@ class _ResponsiveBarState extends State<ResponsiveBar>
           }
         });
 
-      CurvedAnimation _scaleAnimation = CurvedAnimation(
+      CurvedAnimation scaleAnimation = CurvedAnimation(
         parent: _scaleIconController,
         curve: widget.iconScaleCurve,
         reverseCurve: widget.iconScaleCurve.flipped,
       );
 
       Tween<double>(begin: 0.0, end: 1.0)
-          .animate(_scaleAnimation)
+          .animate(scaleAnimation)
           .addListener(() {
         _sizes.value[index] =
-            _scaleAnimation.value * widget.iconScaleAnimationFactor;
+            scaleAnimation.value * widget.iconScaleAnimationFactor;
       });
       if (widget.currentIndex == widget.currentIndex) {
         _scaleIconController.forward();
@@ -492,7 +491,6 @@ class _CustomNavigationBarTile extends StatelessWidget {
   final Color unSelectedColor;
   final double scale;
   final double iconSize;
-  final double iconPadding;
 
   //############################################################################
 
@@ -503,8 +501,8 @@ class _CustomNavigationBarTile extends StatelessWidget {
       required this.selectedColor,
       required this.unSelectedColor,
       required this.scale,
-      required this.iconSize,
-      this.iconPadding = 0.0})
+      required this.iconSize
+      })
       : super(key: key);
 
   //############################################################################
@@ -563,16 +561,12 @@ class BarsOfItem {
     switch (alignType) {
       case AlignType.TOP:
         return top.height;
-        break;
       case AlignType.BOTTOM:
         return bottom.height;
-        break;
       case AlignType.LEFT:
         return left.width;
-        break;
       case AlignType.RIGHT:
         return right.width;
-        break;
     }
   }
 
@@ -607,7 +601,7 @@ class Bar {
 class ResponsiveBarItem {
   ///
   /// The icon of the item
-  /// Typically the icon is of type [Icon]
+  /// Typically the icon is of type [Icon].
   ///
   final Widget icon;
 
@@ -618,19 +612,27 @@ class ResponsiveBarItem {
   /// [icon] in either state.
   final Widget selectedIcon;
 
+  ///
+  /// Item title under icon
+  ///
+  final Widget title;
+
+  ///
+  /// Item selected title under icon
+  ///
+  final Widget selectedTitle;
+
   /// Notification badge count
   final int badgeCount;
 
   /// hide or show badge
   final bool showBadge;
 
-  /// Create a Custom Navigationbar Item
+  /// Create a Custom Navigationbar Item.
   ///
-  /// the [selectedIcon] must not be null
-  /// the [icon] must not be null
+  /// the [selectedIcon] must not be null.
+  /// the [icon] must not be null.
   ResponsiveBarItem(
-      {required this.icon,
-      required this.selectedIcon,
-      this.badgeCount = 0,
-      this.showBadge = false});
+      this.title, this.selectedTitle, this.badgeCount, this.showBadge,
+      {required this.icon, required this.selectedIcon});
 }

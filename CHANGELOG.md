@@ -1,8 +1,5 @@
-## 0.0.1
+## 0.0.3 fix null safety warning
 
-* initial release.
+## 0.0.2 fix usage problem with ResponsiveBarItem
 
-## 0.0.2 - 0.0.3
-
-* fix usage problem with ResponsiveBarItem
-* fix null safety warning by using the package
+## 0.0.1 Added general navigationbar
