@@ -1,11 +1,11 @@
-library flutter_responsive_bar;
+library responsive_navbar;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_responsive_bar/align_type.dart';
-import 'package:flutter_responsive_bar/badge_text.dart';
+import 'package:responsive_navbar/align_type.dart';
+import 'package:responsive_navbar/badge_text.dart';
 
 ///
-/// @author Sebastian.König
+/// @author bknig99
 ///
 //##############################################################################
 class ResponsiveBar extends StatefulWidget {
@@ -14,8 +14,6 @@ class ResponsiveBar extends StatefulWidget {
   final bool usingTopBar;
   final bool usingLeftBar;
   final bool usingRightBar;
-
-  final bool itemsStaked;
 
   ///
   ///sets the roundness of the Bars
@@ -67,6 +65,13 @@ class ResponsiveBar extends StatefulWidget {
   ///List of the SidebarItems
   ///-> Icon, title etc are hold by them
   final List<ResponsiveBarItem> items;
+
+  ///
+  /// sets the navigationbutton layout
+  /// false equals "expanding items over whole navbar"
+  /// ##############################
+  /// default = false
+  final bool itemsStaked;
 
   ///
   ///index of the current Page
@@ -144,8 +149,7 @@ class ResponsiveBar extends StatefulWidget {
       this.useBarAnimation = false,
       this.useBarAccentColor = true,
       this.useIconScaleCurve = true,
-      this.itemsStaked = false
-      })
+      this.itemsStaked = false})
       : assert(iconScaleAnimationFactor <= 0.5,
             'Scale factor must be smaller than 0.5'),
         assert(
@@ -218,22 +222,37 @@ class ResponsiveBarState extends State<ResponsiveBar>
             : CrossAxisAlignment.center,
         children: <Widget>[
           for (var i = 0; i < widget.items.length; i++)
-            Expanded(
-              child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    widget.onTap(i);
-                  },
-                  child: Column(
-                    mainAxisAlignment: widget.itemsStaked
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _buildNavigationItem(i),
-                    ],
-                  )),
-            ),
+            widget.itemsStaked
+                ? GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      widget.onTap(i);
+                    },
+                    child: Column(
+                      mainAxisAlignment: widget.itemsStaked
+                          ? MainAxisAlignment.start
+                          : MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildNavigationItem(i),
+                      ],
+                    ))
+                : Expanded(
+                    child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          widget.onTap(i);
+                        },
+                        child: Column(
+                          mainAxisAlignment: widget.itemsStaked
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            _buildNavigationItem(i),
+                          ],
+                        )),
+                  ),
         ],
       ),
     );
@@ -633,7 +652,7 @@ class ResponsiveBarItem {
   /// the [icon] must not be null
   ResponsiveBarItem(
       {required this.icon,
-        required this.selectedIcon,
-        this.badgeCount = 0,
-        this.showBadge = false});
+      required this.selectedIcon,
+      this.badgeCount = 0,
+      this.showBadge = false});
 }

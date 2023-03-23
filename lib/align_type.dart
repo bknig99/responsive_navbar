@@ -1,5 +1,6 @@
+library responsive_navbar;
 ///
-/// @author Sebastian.König
+/// @author bknig99
 ///
 //##############################################################################
 // ignore: constant_identifier_names
