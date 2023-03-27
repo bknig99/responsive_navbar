@@ -1,3 +1,5 @@
+## 0.0.7 added tooltip functionality to items
+
 ## 0.0.6 cleanup code
 
 ## 0.0.5 fix usage problem with ResponsiveBarItem
