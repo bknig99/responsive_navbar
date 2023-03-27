@@ -96,20 +96,27 @@ class _DesktopMainState extends State<DesktopMain> {
                 passiveItemColor: Colors.white30,
                 transition: const Duration(milliseconds: 700),
                 itemsStaked: true,
+                usingItemDescription: true,
+                tooltipStayDuration: const Duration(milliseconds: 500),
                 items: [
                   ResponsiveBarItem(
+                      description: "test",
                       icon: const Icon(Icons.store_outlined),
                       selectedIcon: const Icon(Icons.store_rounded)),
                   ResponsiveBarItem(
+                      description: "test2",
                       icon: const Icon(Icons.badge_outlined),
                       selectedIcon: const Icon(Icons.badge_rounded)),
                   ResponsiveBarItem(
+                      description: "test3",
                       icon: const Icon(Icons.vpn_key_outlined),
                       selectedIcon: const Icon(Icons.vpn_key_rounded)),
                   ResponsiveBarItem(
+                      description: "test4",
                       icon: const Icon(Icons.source_outlined),
                       selectedIcon: const Icon(Icons.source_rounded)),
                   ResponsiveBarItem(
+                      description: "test5",
                       icon: const Icon(Icons.linear_scale_outlined),
                       selectedIcon: const Icon(Icons.linear_scale_rounded))
                 ],
@@ -183,70 +190,70 @@ class _MobileMainState extends State<MobileMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          color: const Color(0xFF131313),
-          child: Column(
-            children: [
-              Expanded(
-                //################################################################
-                //PageView
-                //################################################################
-                child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  controller: pageController,
-                  onPageChanged: (index) => _currentIndex.value = index,
-                  children: const <Widget>[
-                    Placeholder(),
-                    Placeholder(),
-                    Placeholder(),
-                    Placeholder(),
-                    Placeholder(),
-                  ],
-                ),
-              ),
-              ValueListenableBuilder(
-                valueListenable: _currentIndex,
-                builder: (context, dynamic currentIndex, _) => ResponsiveBar(
-                  useBarAnimation: true,
-                  iconPadding: const EdgeInsets.all(13),
-                  usingTopBar: true,
-                  isForDesktop: false,
-                  currentIndex: currentIndex,
-                  onTap: _handleIndexChanged,
-                  iconSize: 30,
-                  scaling: 60,
-                  transition: const Duration(milliseconds: 500),
-                  iconScaleAnimationFactor: 0.5,
-                  iconScaleCurve: Curves.easeOutSine,
-                  barSizeCurve: Curves.decelerate,
-                  barAccentColor: Colors.white,
-                  backgroundColor: Colors.black38,
-                  activeItemColor: Colors.white,
-                  passiveItemColor: Colors.white38,
-                  items: [
-                    //######################################################
-                    //BarItems
-                    //######################################################
-                    ResponsiveBarItem(
-                        icon: const Icon(Icons.store_outlined),
-                        selectedIcon: const Icon(Icons.store_rounded)),
-                    ResponsiveBarItem(
-                        icon: const Icon(Icons.badge_outlined),
-                        selectedIcon: const Icon(Icons.badge_rounded)),
-                    ResponsiveBarItem(
-                        icon: const Icon(Icons.vpn_key_outlined),
-                        selectedIcon: const Icon(Icons.vpn_key_rounded)),
-                    ResponsiveBarItem(
-                        icon: const Icon(Icons.source_outlined),
-                        selectedIcon: const Icon(Icons.source_rounded)),
-                    ResponsiveBarItem(
-                        icon: const Icon(Icons.linear_scale_outlined),
-                        selectedIcon: const Icon(Icons.linear_scale_rounded))
-                  ],
-                ),
-              ),
-            ],
+      color: const Color(0xFF131313),
+      child: Column(
+        children: [
+          Expanded(
+            //################################################################
+            //PageView
+            //################################################################
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              controller: pageController,
+              onPageChanged: (index) => _currentIndex.value = index,
+              children: const <Widget>[
+                Placeholder(),
+                Placeholder(),
+                Placeholder(),
+                Placeholder(),
+                Placeholder(),
+              ],
+            ),
           ),
-        ));
+          ValueListenableBuilder(
+            valueListenable: _currentIndex,
+            builder: (context, dynamic currentIndex, _) => ResponsiveBar(
+              useBarAnimation: true,
+              iconPadding: const EdgeInsets.all(13),
+              usingTopBar: true,
+              isForDesktop: false,
+              currentIndex: currentIndex,
+              onTap: _handleIndexChanged,
+              iconSize: 30,
+              scaling: 60,
+              transition: const Duration(milliseconds: 500),
+              iconScaleAnimationFactor: 0.5,
+              iconScaleCurve: Curves.easeOutSine,
+              barSizeCurve: Curves.decelerate,
+              barAccentColor: Colors.white,
+              backgroundColor: Colors.black38,
+              activeItemColor: Colors.white,
+              passiveItemColor: Colors.white38,
+              items: [
+                //######################################################
+                //BarItems
+                //######################################################
+                ResponsiveBarItem(
+                    icon: const Icon(Icons.store_outlined),
+                    selectedIcon: const Icon(Icons.store_rounded)),
+                ResponsiveBarItem(
+                    icon: const Icon(Icons.badge_outlined),
+                    selectedIcon: const Icon(Icons.badge_rounded)),
+                ResponsiveBarItem(
+                    icon: const Icon(Icons.vpn_key_outlined),
+                    selectedIcon: const Icon(Icons.vpn_key_rounded)),
+                ResponsiveBarItem(
+                    icon: const Icon(Icons.source_outlined),
+                    selectedIcon: const Icon(Icons.source_rounded)),
+                ResponsiveBarItem(
+                    icon: const Icon(Icons.linear_scale_outlined),
+                    selectedIcon: const Icon(Icons.linear_scale_rounded))
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }

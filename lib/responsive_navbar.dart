@@ -15,6 +15,10 @@ class ResponsiveBar extends StatefulWidget {
   final bool usingLeftBar;
   final bool usingRightBar;
 
+  final bool usingItemDescription;
+  final Duration tooltipStayDuration;
+  final Duration tooltipWaitDuration;
+
   ///
   ///sets the roundness of the Bars
   ///################################
@@ -149,7 +153,10 @@ class ResponsiveBar extends StatefulWidget {
       this.useBarAnimation = false,
       this.useBarAccentColor = true,
       this.useIconScaleCurve = true,
-      this.itemsStaked = false})
+      this.itemsStaked = false,
+      this.usingItemDescription = false,
+      this.tooltipStayDuration = const Duration(milliseconds: 500),
+      this.tooltipWaitDuration = const Duration(milliseconds: 500)})
       : assert(iconScaleAnimationFactor <= 0.5,
             'Scale factor must be smaller than 0.5'),
         assert(
@@ -299,7 +306,13 @@ class ResponsiveBarState extends State<ResponsiveBar>
           widget.usingTopBar ? _resolveTopBorder(index) : Container(),
 
           //leftBorder - Icon - rightBorder
-          _buildIcon(index),
+          widget.usingItemDescription
+              ? Tooltip(
+                  showDuration: widget.tooltipStayDuration,
+                  waitDuration: widget.tooltipWaitDuration,
+                  message: widget.items[index].description,
+                  child: _buildIcon(index))
+              : _buildIcon(index),
 
           //bottomBorder
           widget.usingBottomBar ? _resolveBottomBorder(index) : Container()
@@ -633,6 +646,8 @@ class ResponsiveBarItem {
   ///
   final Widget icon;
 
+  final String description;
+
   /// An alternative icon displayed when this bottom navigation item is
   /// selected.
   /// ------------------------------------
@@ -654,5 +669,6 @@ class ResponsiveBarItem {
       {required this.icon,
       required this.selectedIcon,
       this.badgeCount = 0,
-      this.showBadge = false});
+      this.showBadge = false,
+      this.description = ""});
 }
