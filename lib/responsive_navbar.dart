@@ -514,11 +514,13 @@ class ResponsiveBarState extends State<ResponsiveBar>
       Tween<double>(begin: 0.0, end: 1.0)
           .animate(scaleAnimation)
           .addListener(() {
-        _sizes.value[index] =
-            scaleAnimation.value * widget.iconScaleAnimationFactor;
+        setState(() {
+          _sizes.value[index] =
+              scaleAnimation.value * widget.iconScaleAnimationFactor;
+        });
       });
       if (widget.currentIndex == widget.currentIndex) {
-        _scaleIconController.forward();
+          _scaleIconController.forward();
       }
     }
   }
