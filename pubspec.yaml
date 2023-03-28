@@ -1,6 +1,6 @@
 name: responsive_navbar
 description: this package delivers you a navigationBar with animation and much customization!
-version: 0.0.7
+version: 0.0.8
 homepage: https://github.com/bknig99/flutter_responsive_bar
 
 environment:

@@ -1,3 +1,5 @@
+## 0.0.8 fix icon animation
+
 ## 0.0.7 added tooltip functionality to items
 
 ## 0.0.6 cleanup code
